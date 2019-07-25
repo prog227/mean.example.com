@@ -8,7 +8,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var config = require('./config.dev');
-
+var mongoose = require('mongoose');
 
 var app = express();
 
@@ -42,3 +42,6 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
+//Connect to MongoDB
+mongoose.connect(config.mongodb, { useNewUrlParser: true });
