@@ -11,6 +11,10 @@ var config = require('./config.dev');
 var apiUsersRouter = require('./routes/api/users');
 var mongoose = require('mongoose');
 
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
+var passport = require('passport');
+
 var app = express();
 
 // view engine setup
