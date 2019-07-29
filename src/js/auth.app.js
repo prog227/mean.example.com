@@ -142,7 +142,7 @@ var authApp = (function() {
   
     }
   
-    return {
+   return {
       registrationForm: function(){
         document.querySelector('#registrationForm input[type="submit"]').addEventListener(
           'click',
