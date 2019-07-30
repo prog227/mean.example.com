@@ -67,11 +67,6 @@ passport.deserializeUser(function(user, done){
   done(null, user);
 });
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/api/users', apiUsersRouter);
-app.use('/api/auth', apiAuthRouter);
-app.use('/auth', authRouter);
 app.use(function(req,res,next){
   res.locals.session = req.session;
   next();
@@ -88,6 +83,13 @@ app.use(function(req,res,next){
     '/',
     '/auth'
   ];
+
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+app.use('/api/users', apiUsersRouter);
+app.use('/api/auth', apiAuthRouter);
+app.use('/auth', authRouter);
+
 
   //req.url holds the current URL
   //indexOf() returns the index of the matching array element
