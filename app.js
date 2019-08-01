@@ -21,6 +21,9 @@ var passport = require('passport');
 
 var app = express();
 
+//Connect to MongoDB
+mongoose.connect(config.mongodb, { useNewUrlParser: true });
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -30,6 +33,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/api/users', apiUsersRouter);
 
 //~line 32 before routes
 app.use(require('express-session')({
@@ -66,7 +70,15 @@ passport.serializeUser(function(user, done){
 passport.deserializeUser(function(user, done){
   done(null, user);
 });
+app.use(function(req,res,next){
+  res.locals.session = req.session;
+  next();
+});
 
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+app.use('/api/auth', apiAuthRouter);
+app.use('/auth', authRouter);
 app.use(function(req,res,next){
   res.locals.session = req.session;
   next();
@@ -83,13 +95,6 @@ app.use(function(req,res,next){
     '/',
     '/auth'
   ];
-
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/api/users', apiUsersRouter);
-app.use('/api/auth', apiAuthRouter);
-app.use('/auth', authRouter);
-
 
   //req.url holds the current URL
   //indexOf() returns the index of the matching array element
@@ -142,6 +147,3 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
-
-//Connect to MongoDB
-mongoose.connect(config.mongodb, { useNewUrlParser: true });
