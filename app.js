@@ -88,15 +88,6 @@ app.use(function(req,res,next){
   next();
 });
 
-app.use('/', indexRouter);
-app.use('/api/users', apiUsersRouter);
-app.use('/users', usersRouter);
-app.use('/api/auth', apiAuthRouter);
-app.use('/auth', authRouter);
-app.use(function(req,res,next){
-  res.locals.session = req.session;
-  next();
-});
 
 //Session based access control
 // app.use(function(req,res,next){
@@ -144,6 +135,12 @@ app.use(function(req,res,next){
 // //   //redirect the user to the login screen.
 //   return res.redirect('/auth#login');
 // });
+
+app.use('/', indexRouter);
+app.use('/api/users', apiUsersRouter);
+app.use('/users', usersRouter);
+app.use('/api/auth', apiAuthRouter);
+app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
