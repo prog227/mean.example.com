@@ -111,37 +111,7 @@ var usersApp = (function() {
       app.innerHTML=form;
       processRequest('createUser', '/api/users', 'POST');
     }
-    function postRequest(formId, url){
-      let form = document.getElementById(formId);
-      form.addEventListener('submit', function(e){
-        e.preventDefault();
-  
-        let formData = new FormData(form);
-        let uri = `${window.location.origin}${url}`;
-        let xhr = new XMLHttpRequest();
-        xhr.open('POST', uri);
-  
-        xhr.setRequestHeader(
-          'Content-Type',
-          'application/json; charset=UTF-8'
-        );
-  
-        let object = {};
-        formData.forEach(function(value, key){
-          object[key]=value;
-        });
-  
-        xhr.send(JSON.stringify(object));
-        xhr.onload = function(){
-          let data = JSON.parse(xhr.response);
-          if(data.success===true){
-            window.location.href = '/';
-          }else{
-            document.getElementById('formMsg').style.display='block';
-          }
-        }
-      });
-    }
+    
     function viewUser(id){
   
       let uri = `${window.location.origin}/api/users/${id}`;
@@ -281,42 +251,11 @@ var usersApp = (function() {
   
             <div class="text-center">
               <br>
-              <a onclick=extends ../layout
+              <a onclick="usersApp.deleteUser('${data.user._id}');" class="btn btn-lg btn-danger text-white">
+              Yes delete ${data.user.username}
+            </a>
   
-              block content
-                h1 Create an Article
-                form(method='post' action='/users/articles')
-                  div
-                    label(for='title') Title
-                    input(type='text' name='title' id='title')
-                  div
-                    label(for='slug') Slug
-                    input(type='text' name='slug' id='slug')
-                  div
-                    label(for='keywords') Keywords
-                    input(type='text' name='keywords' id='keywords')
-                  div
-                    label(for='description') Description
-                    input(type='text' name='description' id='description')
-                  div
-                    label(for='body') Body
-                    input(type='text' name='body' id='body')
-                  div
-                    label(for='created') Created
-                    input(type='text' name='created' id='created')
-                  div
-                    label(for='modified') Modified
-                    input(type='text' name='modified' id='modified')
-                  div
-                    label(for='published') Published
-                    input(type='text' name='published' id='published')
-                  div
-                    input(type='submit' value='submit')"usersApp.deleteUser('${data.user._id}');" class="btn btn-lg btn-danger text-white">
-                Yes delete ${data.user.username}
-              </a>
-  
-              <br><br><br>
-              <a class="btn text-muted" href="#users">cancel</a>
+              
             </div>
   
           </div>
@@ -386,9 +325,7 @@ var usersApp = (function() {
   
     return {
   
-      deleteUser: function(id){
-        deleteUser(id);
-      },
+      
   
       load: function(){
         let hash = window.location.hash;
@@ -416,6 +353,9 @@ var usersApp = (function() {
             viewUsers();
             break;
         }
+      },
+      deleteUser: function(id){
+        deleteUser(id);
       }
     }
   
