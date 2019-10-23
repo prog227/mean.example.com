@@ -8,3 +8,7 @@
     display: none;
   }
   
+  //~line 11
+@media all and (max-width:480px) {
+  .btn-sm-block { width: 100%; display:block; }
+}
