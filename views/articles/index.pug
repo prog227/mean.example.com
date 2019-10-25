@@ -1,8 +1,8 @@
 extends ../layout
 
 block content
-  h1 Blog
-  for article in articles
+  h1= title
+  //- for article in articles
 
     div.article
       a(href='articles/' +   article.slug)
