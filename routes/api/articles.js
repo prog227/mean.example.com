@@ -1,15 +1,16 @@
 var express = require('express');
-var router = express.Router();
 var Articles = require('../../models/articles');
+var router = express.Router();
 
-router.get('/', function(req, res, next) {});
+router.get('/', function(req, res, next) {
 
-router.get('/:articleId', function(req,res){});
+  Articles.find({},function(err, articles){
+    if(err){
+    return res.json({'success':false, 'error': err});
+ }
+    return res.json({'success':true, 'articles': articles});
+  });
+});
 
-router.post('/', function(req, res) {});
-
-router.put('/', function(req, res){});
-
-router.delete('/:articleId', function(req,res){});
 
 module.exports = router;
