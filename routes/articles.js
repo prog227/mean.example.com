@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Articles = require('../models/articles');
-var Today = new Date();
+var today = new Date();
 
 router.get('/', function(req, res, next) {
   Articles.find({},function(err, articles){
